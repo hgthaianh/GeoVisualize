@@ -7,7 +7,7 @@ This template provides a minimal setup to get React working in Vite with HMR and
 The React app calls a local Python API for Microsoft Planetary Computer analysis:
 
 ```bash
-python -m pip install -r tools/requirements-pc-cover.txt
+python -m pip install -r scripts/requirements-pc-cover.txt
 npm run cover-api
 ```
 

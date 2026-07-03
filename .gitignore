@@ -16,6 +16,14 @@ __pycache__/
 *.pyc
 public/lam_kinh_public.kml
 
+# Generated geospatial outputs and model weights
+*.tif
+*.tiff
+*.pth
+*.pt
+*.onnx
+*.zip
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
