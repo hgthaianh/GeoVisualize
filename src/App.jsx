@@ -43,6 +43,24 @@ export default function App() {
     barLeft: '0%'
   });
 
+  const [cover, setCover] = useState({
+    status: 'idle',
+    note: 'Chưa tính độ che phủ bằng Microsoft API.',
+    metrics: null,
+    valuation: null,
+    selected_scene: null,
+    source: ''
+  });
+
+  const [coverOptions, setCoverOptions] = useState({
+    model: 'timber8',
+    age: 4,
+    soil: 'red_yellow',
+    rainfall: 'normal',
+    priceVndM3: 900000,
+    sceneCloudMax: 10
+  });
+
   const [status, setStatus] = useState({
     mapUpdatedAt: 'Lần kiểm tra dữ liệu: —',
     spectralStatus: 'Đang tìm ảnh ít mây...',
@@ -134,6 +152,7 @@ export default function App() {
       onSatelliteCheckedChange: (val) => setStatus(s => ({ ...s, satelliteChecked: val })),
       onSpectralModeDisabledChange: (val) => setStatus(s => ({ ...s, spectralModeDisabled: val })),
       onLegendChange: (open) => setStatus(s => ({ ...s, legendOpen: open })),
+      onCoverUpdate: (data) => setCover(data),
       onLoading: (isLoading) => setStatus(s => ({ ...s, loading: isLoading })),
       onLoadingError: (err) => setStatus(s => ({ ...s, loadingError: err })),
       onCameraCoordsChange: (val) => setStatus(s => ({ ...s, cameraCoords: val })),
@@ -176,6 +195,15 @@ export default function App() {
         }}
         onToggleForest={(val) => mapLogic.current?.toggleForest(val)}
         onToggleZone={(val) => mapLogic.current?.toggleZone(val)}
+        cover={cover}
+        coverOptions={coverOptions}
+        onSetCoverOptions={(patch) => setCoverOptions(s => ({ ...s, ...patch }))}
+        onCalculateCover={() => {
+          setCover({ status: 'loading', note: 'Đang gửi polygon sang Microsoft Planetary Computer...', metrics: null, valuation: null });
+          mapLogic.current?.calculateCoverAndValue(coverOptions).catch((error) => {
+            setCover({ status: 'error', note: error.message, metrics: null, valuation: null });
+          });
+        }}
       />
 
       <MapTools 

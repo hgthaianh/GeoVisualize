@@ -850,6 +850,21 @@ export function initCesiumMap(containerId, callbacks) {
 
   function setDensity(val) { density = val; clearTimeout(densityTimer); densityTimer = setTimeout(rebuildForest, 120); }
 
+  async function calculateCoverAndValue(options = {}) {
+    const plot = selectedPlot || plots[0];
+    if (!plot) throw new Error("Chưa có polygon để tính độ che phủ.");
+    callbacks.onCoverUpdate?.({ status: "loading", note: "Đang tính bằng Microsoft Planetary Computer..." });
+    const response = await fetch("http://127.0.0.1:8765/api/cover", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ geojson: plotAsGeoJson(plot), options })
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || `Cover API HTTP ${response.status}`);
+    callbacks.onCoverUpdate?.({ status: "ok", plotName: plot.name, ...result });
+    return result;
+  }
+
   function toggle2D() { is3D = !is3D; if (is3D) scene.morphTo3D(1); else scene.morphTo2D(1); }
 
   
@@ -878,5 +893,5 @@ export function initCesiumMap(containerId, callbacks) {
     link.click();
   }
 
-  return { setDensity, toggleDrawing, flyToAll, zoomIn, zoomOut, toggleReference, toggleSatellite, setSpectralMode, toggleForest, toggleZone, toggle2D, exportMap, destroy };
+  return { setDensity, toggleDrawing, flyToAll, zoomIn, zoomOut, toggleReference, toggleSatellite, setSpectralMode, toggleForest, toggleZone, toggle2D, calculateCoverAndValue, exportMap, destroy };
 }

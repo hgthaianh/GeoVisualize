@@ -117,6 +117,21 @@ input[type="range"]::-webkit-slider-thumb { appearance: none; width: 14px; heigh
 .ndvi-ticks { display: flex; justify-content: space-between; margin-top: 4px; color: #56695e; font-size: 6px; }
 .health-card p { margin: 10px 0 0; color: #96aa9e; font-size: 10px; line-height: 1.55; }
 .health-card .analysis-limit { padding-top: 9px; border-top: 1px solid var(--line); color: #6f8478; font-size: 9px; }
+.cover-card { margin-top: 10px; padding: 13px; border: 1px solid rgba(139,212,80,.18); border-radius: 12px; background: rgba(139,212,80,.035); }
+.cover-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+.cover-form label { min-width: 0; }
+.cover-form small { display: block; margin-bottom: 4px; color: #7d9285; font-size: 8px; letter-spacing: .08em; }
+.cover-form select, .cover-form input { width: 100%; min-width: 0; box-sizing: border-box; padding: 8px 9px; border: 1px solid var(--line); border-radius: 7px; outline: 0; color: #d1dfd4; background: #14271d; font-size: 10px; }
+.cover-form .cover-wide { grid-column: 1 / -1; }
+.cover-run { width: 100%; margin-top: 10px; padding: 10px; border: 1px solid rgba(139,212,80,.35); border-radius: 8px; color: #dff4d3; background: rgba(139,212,80,.12); cursor: pointer; font-size: 10px; font-weight: 650; }
+.cover-run:disabled { opacity: .55; cursor: wait; }
+.cover-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin-top: 10px; }
+.cover-results > div { min-width: 0; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.025); }
+.cover-results small, .cover-results strong, .cover-results span { display: block; }
+.cover-results small { color: #7d9285; font-size: 8px; letter-spacing: .07em; }
+.cover-results strong { margin-top: 3px; color: #dceadf; font-family: ui-serif, Georgia, "Times New Roman", serif; font-size: 15px; font-weight: 400; }
+.cover-results span { margin-top: 2px; color: #74897c; font-size: 8px; }
+.cover-card .analysis-limit { margin: 10px 0 0; padding-top: 9px; border-top: 1px solid var(--line); color: #6f8478; font-size: 9px; line-height: 1.45; }
 
 .map-tools { position: fixed; z-index: 8; right: 22px; top: 92px; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: rgba(7,20,14,.75); backdrop-filter: blur(12px); }
 .map-tools button { width: 38px; height: 38px; border: 0; background: transparent; cursor: pointer; font-size: 19px; }
